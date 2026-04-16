@@ -1,8 +1,3 @@
-INSERT INTO users (first_name, last_name, email, password_hash, role, phone)
-VALUES ('Jan', 'Kowalski', 'szef@paliwex.pl', 'tajnehaslo123', 'Właściciel', '123-456-789')
+INSERT INTO users (client_number, first_name, last_name, email, password_hash, role, phone)
+VALUES ('PAL-SZEF01', 'Jan', 'Kowalski', 'szef@paliwex.pl', '$2a$10$wT8v6Y9.O4XmK/uA8vH/u.3VfO1u2K3D4E5F6G7H8I9J0K1L2M3N.', 'Właściciel', '123-456-789')
 ON CONFLICT (email) DO NOTHING;
-
-INSERT INTO tanks (name, fuel_type, capacity_liters, current_level_liters, pressure_kpa, temperature_c, safety_valve_active, status)
-VALUES ('Zbiornik Główny PB95', 'PB95', 20000.00, 15400.50, 101.3, 14.5, false, 'OK')
-ON CONFLICT DO NOTHING;
--- (Uwaga: dla tabeli tanks trzeba by dodać unikalny klucz na nazwę zbiornika, żeby ON CONFLICT zadziałało w pełni poprawnie)
