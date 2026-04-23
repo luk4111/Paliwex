@@ -57,7 +57,9 @@ public class AuthController {
 
         // ZMIANA: Szyfrujemy hasło przed zapisaniem go do bazy!
         newUser.setPasswordHash(passwordEncoder.encode(request.getPassword()));
-
+        // Generujemy losowy, unikalny numer (np. PAL-4F8A2D)
+        String generatedNumber = "PAL-" + java.util.UUID.randomUUID().toString().substring(0, 6).toUpperCase();
+        newUser.setClientNumber(generatedNumber);
         userRepository.save(newUser);
         return ResponseEntity.ok("Rejestracja zakończona sukcesem!");
     }

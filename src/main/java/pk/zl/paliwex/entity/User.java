@@ -29,6 +29,9 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "client_number", unique = true)
+    private String clientNumber;
+
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
@@ -49,5 +52,8 @@ public class User {
 
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
+
+    public String getClientNumber() { return clientNumber; }
+    public void setClientNumber(String clientNumber) { this.clientNumber = clientNumber; }
 
 }
