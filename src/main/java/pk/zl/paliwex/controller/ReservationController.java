@@ -30,25 +30,23 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<?> createReservation(@RequestBody Reservation reservation) {
-        // 1. Sprawdzamy, czy termin jest zajęty
-        boolean isOccupied = reservationRepository.existsByStandNumberAndStartTimeBeforeAndEndTimeAfter(
-                reservation.getStandNumber(), // <--- Tu teraz będzie pasować!
-                reservation.getEndTime(),
-                reservation.getStartTime()
+        // Sprawdzamy nową, precyzyjną metodą
+        boolean occupied = reservationRepository.isOccupied(
+                reservation.getStandNumber(),
+                reservation.getStartTime(),
+                reservation.getEndTime()
         );
 
-        if (isOccupied) {
+        if (occupied) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("Błąd: Stanowisko " + reservation.getStandNumber() + " jest już zajęte w tym czasie!");
+                    .body("Błąd: Stanowisko " + reservation.getStandNumber() + " jest zajęte w tym terminie!");
         }
 
-        // 2. Jeśli wolne, ustawiamy status i zapisujemy
         if (reservation.getStatus() == null) {
             reservation.setStatus("PENDING");
         }
 
-        Reservation saved = reservationRepository.save(reservation);
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.ok(reservationRepository.save(reservation));
     }
 
 }
