@@ -4,20 +4,19 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "fuel_tanks")
+@Table(name = "tanks") // Zmieniliśmy z fuel_tanks na tanks
 public class FuelTank {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "fuel_type", nullable = false)
-    private String fuelType; // np. "PB95", "ON", "LPG"
+    @Column(name = "fuel_type")
+    private String fuelType;
 
-    @Column(name = "current_liters", nullable = false)
+    @Column(name = "current_level_liters") // Dopasowane do schematu
     private BigDecimal currentLiters;
 
-    @Column(name = "max_capacity", nullable = false)
+    @Column(name = "capacity_liters") // Dopasowane do schematu
     private BigDecimal maxCapacity;
 
     // --- Konstruktory ---
