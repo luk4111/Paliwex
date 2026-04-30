@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
-import java.time.LocalDateTime; // TO JEST KLUCZOWE DLA DATY
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transactions")
@@ -30,14 +30,13 @@ public class Transaction {
     @Column(name = "transaction_type")
     private String transactionType;
 
-    // I oczywiście Getter i Setter (możesz wygenerować Alt+Insert)
     public String getTransactionType() { return transactionType; }
     public void setTransactionType(String transactionType) { this.transactionType = transactionType; }
     private String description;
 
-    // --- Gettery i Settery ---
     public void setClientId(Integer clientId) { this.clientId = clientId; }
     public void setAmount(BigDecimal amount) { this.amount = amount; }
     public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
     public void setDescription(String description) { this.description = description; }
+
 }
