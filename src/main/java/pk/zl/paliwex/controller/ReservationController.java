@@ -52,7 +52,7 @@ public class ReservationController {
     @PutMapping("/{id}/cancel")
     public ResponseEntity<?> cancelReservation(@PathVariable Integer id) {
         return reservationRepository.findById(id).map(reservation -> {
-            reservation.setStatus("ANULOWANE");
+            reservation.setStatus("CANCELLED");
             reservationRepository.save(reservation);
             return ResponseEntity.ok().body("Rezerwacja została anulowana.");
         }).orElse(ResponseEntity.notFound().build());
