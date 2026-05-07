@@ -18,14 +18,21 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // Mówimy Springowi: na razie przepuszczaj wszystkie zapytania bez blokowania
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Wyłączamy ochronę CSRF (dla REST API jest to standard)
+                .cors(cors -> cors.configurationSource(request -> {
+                    var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
+                    corsConfiguration.setAllowedOrigins(java.util.List.of("http://localhost:5173"));
+                    corsConfiguration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    corsConfiguration.setAllowedHeaders(java.util.List.of("*"));
+                    return corsConfiguration;
+                }))
+                .csrf(csrf -> csrf.disable()) // Wyłączamy CSRF dla testów API
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // Przepuszczamy wszystko!
+                        .anyRequest().permitAll() // Pozwalamy na wszystko, dopóki nie skończymy dev
                 );
+
         return http.build();
     }
 }

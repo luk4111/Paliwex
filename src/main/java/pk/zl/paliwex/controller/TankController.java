@@ -7,6 +7,7 @@ import pk.zl.paliwex.repository.TankRepository;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/tanks")
 public class TankController {

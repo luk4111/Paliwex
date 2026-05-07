@@ -2,6 +2,7 @@ package pk.zl.paliwex.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tanks")
@@ -11,7 +12,6 @@ public class Tank {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
     private String name;
 
     @Column(name = "fuel_type", nullable = false)
@@ -23,13 +23,10 @@ public class Tank {
     @Column(name = "current_level_liters")
     private BigDecimal currentLevelLiters;
 
-    @Column(name = "pressure_kpa")
-    private BigDecimal pressureKpa;
-
-    @Column(name = "temperature_c")
-    private BigDecimal temperatureC;
-
     private String status;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     // --- Gettery i Settery ---
     public Integer getId() { return id; }
@@ -42,10 +39,6 @@ public class Tank {
     public void setCapacityLiters(BigDecimal capacityLiters) { this.capacityLiters = capacityLiters; }
     public BigDecimal getCurrentLevelLiters() { return currentLevelLiters; }
     public void setCurrentLevelLiters(BigDecimal currentLevelLiters) { this.currentLevelLiters = currentLevelLiters; }
-    public BigDecimal getPressureKpa() { return pressureKpa; }
-    public void setPressureKpa(BigDecimal pressureKpa) { this.pressureKpa = pressureKpa; }
-    public BigDecimal getTemperatureC() { return temperatureC; }
-    public void setTemperatureC(BigDecimal temperatureC) { this.temperatureC = temperatureC; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 }
