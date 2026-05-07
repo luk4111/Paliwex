@@ -7,9 +7,12 @@ import org.springframework.stereotype.Repository;
 import pk.zl.paliwex.entity.Reservation;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
+
+    List<Reservation> findByClientId(Integer clientId);
 
     @Query("SELECT COUNT(r) > 0 FROM Reservation r WHERE r.standNumber = :stand " +
             "AND (:start < r.endTime AND :end > r.startTime)")
