@@ -48,5 +48,15 @@ public class ReservationController {
 
         return ResponseEntity.ok(reservationRepository.save(reservation));
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> cancelReservation(@PathVariable Integer id) {
+        return reservationRepository.findById(id)
+                .map(reservation -> {
+                    reservation.setStatus("CANCELLED");
+                    reservationRepository.save(reservation);
 
+                    return ResponseEntity.ok("Rezerwacja odwołana pomyślnie.");
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
