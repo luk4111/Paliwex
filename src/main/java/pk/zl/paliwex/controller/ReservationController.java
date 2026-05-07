@@ -49,18 +49,15 @@ public class ReservationController {
     }
 
     // 3. ODWOŁYWANIE (USUWANIE) - Tego pewnie brakowało frontendowi
-    @DeleteMapping("/{id}")
+    @PutMapping("/{id}/cancel")
     public ResponseEntity<?> cancelReservation(@PathVariable Integer id) {
-        return reservationRepository.findById(id)
-                .map(reservation -> {
-                    reservation.setStatus("ANULOWANA");
-                    reservationRepository.save(reservation);
-
-                    return ResponseEntity.ok("Rezerwacja o ID " + id + " została pomyślnie odwołana (zmieniono status).");
-                })
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("Nie znaleziono rezerwacji o ID " + id));
+        return reservationRepository.findById(id).map(reservation -> {
+            reservation.setStatus("ANULOWANE");
+            reservationRepository.save(reservation);
+            return ResponseEntity.ok().body("Rezerwacja została anulowana.");
+        }).orElse(ResponseEntity.notFound().build());
     }
+
     @GetMapping("/client/{clientId}")
     public List<Reservation> getClientReservations(@PathVariable Integer clientId) {
         return reservationRepository.findByClientId(clientId);
